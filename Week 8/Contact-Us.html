@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us</title>
+<style>
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        font-family: Arial, sans-serif;
+    }
+    .container {
+        text-align: center;
+    }
+    input[type="text"], input[type="email"], input[type="button"] {
+        margin-bottom: 10px;
+        font-family: Arial, sans-serif;
+    }
+    h1 {
+        font-family: Arial, sans-serif;
+    }
+    .error {
+        border: 2px solid red;
+    }
+    .footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 10px 0;
+    background-color: #f0f0f0;
+  }
+  .footer a {
+    font-family: Arial, sans-serif;
+    margin: 0 10px;
+    text-decoration: none;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>Contact Us</h1>
+    <form id="contactForm">
+        <input type="text" id="name" placeholder="Your Name"><br>
+        <input type="email" id="email" placeholder="Your Email"><br>
+        <input type="button" value="Agree" onclick="agree()">
+        <input type="button" value="Do Not Agree" onclick="disagree()">
+    </form>
+</div>
+
+<script>
+    function agree() {
+        alert("Thank you for your agreement!");
+        // Additional actions can be added here
+    }
+
+    function disagree() {
+        alert("We're sorry to hear that. Please feel free to reach out to us for any concerns.");
+        document.getElementById("name").classList.add("error");
+        document.getElementById("email").classList.add("error");
+    }
+</script>
+<div class="footer">
+    <a href="Wk 6 html Website.html">Homepage</a>
+  <a href="Page 1.html">Page 1</a>
+  <a href="Page 2.html">Page 2</a>
+</div>
+</body>
+</html>
