@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        Portrait of The Enigmatic Artist
+    </title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.min.js"></script>
+    <script>
+        function setup() {
+            createCanvas(500, 600);
+        }
+
+        function draw() {
+            background(220);
+            strokeWeight(10);
+            // Head
+            ellipse(145, 100, 100, 120);
+
+            // Body
+            rect(108, 170, 75, 110);
+
+            // Both legs
+            rect(108, 290, 5, 100);
+            rect(178, 290, 5, 100);
+
+            // Left eye
+            point(128, 85);
+
+            // Right eye
+            point(168, 85);
+
+            // Right arm
+            line(200, 150, 250, 110);
+
+            // Left arm
+            line(50, 250, 87, 200);
+
+            // Text
+            textSize(32);
+            text('Giulli', 100, 450);
+            
+        }
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>
