@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        Portrait of The Enigmatic Artist
+    </title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.min.js"></script>
+    <script>
+        let ellipseX, rectY1, rectY2, textFontSize, grow;
+        let Rect1, Rect2; 
+        let Body; 
+
+        function setup() {
+            createCanvas(500, 600);
+            ellipseX = width / 2; 
+            rectY1 = height / 2; 
+            rectY2 = height / 2; 
+            textFontSize = 32; 
+            grow = true; 
+            Rect1 = createVector(108, 290);
+            Rect2 = createVector(178, 290);
+            Body = createVector(108, 170);
+        }
+
+        function draw() {
+            background(220);
+            strokeWeight(10);
+            // Head 
+            ellipse(ellipseX, 100, 100, 120);
+
+            // Body 
+            rect(Body.x, Body.y, 75, 110); 
+
+            // Both legs
+            rect(Rect1.x, Rect1.y, 5, 100); 
+            rect(Rect2.x, Rect2.y, 5, 100); 
+
+            // Left eye
+            point(128, 85);
+
+            // Right eye
+            point(168, 85);
+
+            // Right arm 
+            line(200, 150, 250, 110);
+
+            // Left arm 
+            line(50, 250, 87, 200);
+
+            // Text
+            textSize(textFontSize);
+            text('Giulli', 100, 450);
+
+            ellipseX += 5 * Math.cos(frameCount * 0.1); 
+            rectY1 += 2 * Math.cos(frameCount * 0.08); 
+            rectY2 += 2 * Math.cos(frameCount * 0.08); 
+            Rect1.y += 1 * Math.sin(frameCount * 0.03); 
+            Rect2.y -= 1 * Math.sin(frameCount * 0.03); 
+            Body.x += 2 * Math.cos(frameCount * 0.1);
+            Body.y += 2 * Math.sin(frameCount * 0.1);
+
+            if (grow) {
+                textFontSize += 0.2;
+                if (textFontSize >= 36) grow = false;
+            } else {
+                textFontSize -= 0.2;
+                if (textFontSize <= 32) grow = true;
+            }
+        }
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>
