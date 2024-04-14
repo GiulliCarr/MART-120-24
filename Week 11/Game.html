@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Canvas Game</title>
+<style>
+    canvas {
+        border: 1px solid black;
+    }
+</style>
+</head>
+<body>
+    <header>"Use the arrow keys to get the black square to the green one! Click anywhere in the margins and another obstacle will appear."</header>
+<canvas id="gameCanvas" width="800" height="600"></canvas>
+<script>
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+
+    const player = {
+        x: canvas.width / 2,
+        y: canvas.height / 2,
+        width: 20,
+        height: 20,
+        speed: 5
+    };
+    const obstacles = [
+        { x: 100, y: 100, width: 30, height: 30, color: 'red' },
+        { x: 400, y: 300, width: 40, height: 40, color: 'blue' }
+    ];
+    const exit = {
+        x: canvas.width - 50,
+        y: canvas.height - 50,
+        width: 40,
+        height: 40,
+        color: 'green'
+    };
+
+    let nonMovingObstacle = null;
+    canvas.addEventListener('click', function(event) {
+        const rect = canvas.getBoundingClientRect();
+        const mouseX = event.clientX - rect.left;
+        const mouseY = event.clientY - rect.top;
+        nonMovingObstacle = { x: mouseX, y: mouseY, width: 30, height: 30, color: 'purple' };
+    });
+
+    function drawPlayer() {
+        ctx.fillStyle = 'black';
+        ctx.fillRect(player.x, player.y, player.width, player.height);
+    }
+
+    function drawObstacles() {
+        obstacles.forEach(obstacle => {
+            ctx.fillStyle = obstacle.color;
+            ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
+        });
+        if (nonMovingObstacle) {
+            ctx.fillStyle = nonMovingObstacle.color;
+            ctx.fillRect(nonMovingObstacle.x, nonMovingObstacle.y, nonMovingObstacle.width, nonMovingObstacle.height);
+        }
+    }
+
+    function drawExit() {
+        ctx.fillStyle = exit.color;
+        ctx.fillRect(exit.x, exit.y, exit.width, exit.height);
+    }
+
+    function update() {
+        obstacles.forEach(obstacle => {
+            obstacle.x += Math.random() * 10 - 5;
+            obstacle.y += Math.random() * 10 - 5;
+            if (obstacle.x > canvas.width) {
+                obstacle.x = -obstacle.width;
+            } else if (obstacle.x < -obstacle.width) {
+                obstacle.x = canvas.width;
+            }
+            if (obstacle.y > canvas.height) {
+                obstacle.y = -obstacle.height;
+            } else if (obstacle.y < -obstacle.height) {
+                obstacle.y = canvas.height;
+            }
+        });
+    }
+
+    function checkWin() {
+        if (player.x < exit.x + exit.width && player.x + player.width > exit.x &&
+            player.y < exit.y + exit.height && player.y + player.height > exit.y) {
+            alert('You won!');
+        }
+    }
+
+    function clearCanvas() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+    function draw() {
+        clearCanvas();
+        drawPlayer();
+        drawObstacles();
+        drawExit();
+        update();
+        checkWin();
+        requestAnimationFrame(draw);
+    }
+    window.addEventListener('keydown', function(event) {
+        switch(event.key) {
+            case 'ArrowLeft':
+                player.x -= player.speed;
+                break;
+            case 'ArrowRight':
+                player.x += player.speed;
+                break;
+            case 'ArrowUp':
+                player.y -= player.speed;
+                break;
+            case 'ArrowDown':
+                player.y += player.speed;
+                break;
+        }
+    });
+    draw();
+</script>
+</body>
+</html>
