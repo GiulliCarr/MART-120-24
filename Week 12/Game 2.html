@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Canvas Game</title>
+<style>
+    canvas {
+        border: 1px solid black;
+    }
+</style>
+</head>
+<body>
+    <header>"Use the arrow keys to get the black square to the green one! Click anywhere in the margins and another obstacle will appear."</header>
+<canvas id="gameCanvas" width="800" height="600"></canvas>
+<script>
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+
+    function createPlayer() {
+        return {
+            x: canvas.width / 2,
+            y: canvas.height / 2,
+            width: 20,
+            height: 20,
+            speed: 5
+        };
+    }
+
+    let player = createPlayer(); 
+
+    function movePlayer(event) {
+        switch(event.key) {
+            case 'ArrowLeft':
+                player.x -= player.speed;
+                break;
+            case 'ArrowRight':
+                player.x += player.speed;
+                break;
+            case 'ArrowUp':
+                player.y -= player.speed;
+                break;
+            case 'ArrowDown':
+                player.y += player.speed;
+                break;
+        }
+    }
+    window.addEventListener('keydown', movePlayer);
+
+    let nonMovingObstacles = []; 
+    canvas.addEventListener('click', function(event) {
+        const rect = canvas.getBoundingClientRect();
+        const mouseX = event.clientX - rect.left;
+        const mouseY = event.clientY - rect.top;
+        const newObstacle = { x: mouseX, y: mouseY, width: 30, height: 30, color: 'purple' };
+        nonMovingObstacles.push(newObstacle);
+    });
+
+    let obstacles = [
+        { x: 100, y: 100, width: 30, height: 30, color: 'red' },
+        { x: 400, y: 300, width: 40, height: 40, color: 'blue' }
+    ];
+
+    function moveObstacles() {
+        obstacles.forEach(obstacle => {
+            obstacle.x += Math.random() * 10 - 5;
+            obstacle.y += Math.random() * 10 - 5;
+            if (obstacle.x > canvas.width) {
+                obstacle.x = -obstacle.width;
+            } else if (obstacle.x < -obstacle.width) {
+                obstacle.x = canvas.width;
+            }
+            if (obstacle.y > canvas.height) {
+                obstacle.y = -obstacle.height;
+            } else if (obstacle.y < -obstacle.height) {
+                obstacle.y = canvas.height;
+            }
+        });
+    }
+
+    function drawBorder() {
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.lineTo(canvas.width, 0);
+        ctx.lineTo(canvas.width, canvas.height);
+        ctx.lineTo(0, canvas.height);
+        ctx.closePath();
+        ctx.stroke();
+    }
+
+    const exit = {
+        x: canvas.width - 50,
+        y: canvas.height - 50,
+        width: 40,
+        height: 40,
+        color: 'green'
+    };
+
+    function checkWin() {
+        if (player.x < exit.x + exit.width && player.x + player.width > exit.x &&
+            player.y < exit.y + exit.height && player.y + player.height > exit.y) {
+            alert('You won!');
+        }
+    }
+
+    function clearCanvas() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+    function draw() {
+        clearCanvas();
+        drawBorder();
+        drawPlayer();
+        drawObstacles();
+        drawExit();
+        moveObstacles();
+        checkWin();
+        requestAnimationFrame(draw);
+    }
+
+    function drawPlayer() {
+        ctx.fillStyle = 'black';
+        ctx.fillRect(player.x, player.y, player.width, player.height);
+    }
+
+    function drawObstacles() {
+        obstacles.forEach(obstacle => {
+            ctx.fillStyle = obstacle.color;
+            ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
+        });
+        nonMovingObstacles.forEach(obstacle => {
+            ctx.fillStyle = obstacle.color;
+            ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
+        });
+    }
+
+    function drawExit() {
+        ctx.fillStyle = exit.color;
+        ctx.fillRect(exit.x, exit.y, exit.width, exit.height);
+    }
+
+    draw(); 
+</script>
+</body>
+</html>
