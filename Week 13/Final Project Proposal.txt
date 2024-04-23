@@ -1,0 +1,13 @@
+﻿Carranza
+McKague
+MART 120
+22 Apr 2024
+
+
+Final Project Proposal
+
+
+        I’ve decided that I will be making an audio visualizer for my final project. After seeing the two past student examples of this, I was heavily inspired, and felt that it would be fun to create moving art similarly.
+        I still want to put my own twist on it, and am hoping to create a visualizer that will still respond to movement from the cursor moving on the screen. I’m not sure how I will accomplish this, but I’m sure I’ll figure it out. I will be utilizing a lot of tutorial videos, as I have no idea how to do all of this on my own. I have a roadmap of watching these videos and following along throughout the next two weeks. My goal is to have this project done by May 1st or 2nd, as I feel this gives me ample time to get detail oriented, while still allowing me time to like, catch my breath after this semester.
+        I know that my biggest problem is going to be time. I work on top of a full course load, and the next two weeks are going to be spent pulling all-nighters, which I normally never do. But since it’s finals week I have no choice, so that will be a struggle, but not something I can’t do.
+        I’m excited and nervous to see what I come up with, and hopefully it fits the parameters of the final project requirements.
